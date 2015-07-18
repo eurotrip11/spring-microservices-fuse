@@ -35,7 +35,7 @@ public class AuthEndpoint implements APIAuth {
         return authService.created(request);
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "activated")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "activatedLoginRequest")
     @ResponsePayload
     public ActivatedLoginResponse activated(ActivatedLoginRequest request) {
         return authService.activated(request);

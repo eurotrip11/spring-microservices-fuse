@@ -23,6 +23,21 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-blueprint</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cxf</artifactId>
+        </dependency>
+
+        <!-- using Jetty with CXF -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+        </dependency>
+        <!-- explicit dependency to exclude asm:asm:3.3.1 -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -40,7 +55,61 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-blueprint</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.apache.felix.fileinstall</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>biz.aQute</groupId>
+                    <artifactId>bndlib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.apache.aries.proxy</groupId>
+            <artifactId>org.apache.aries.proxy.api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries.proxy</groupId>
+            <artifactId>org.apache.aries.proxy.impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.base</groupId>
+            <artifactId>ops4j-base-io</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.base</groupId>
+            <artifactId>ops4j-base-lang</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.base</groupId>
+            <artifactId>ops4j-base-store</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.swissbox</groupId>
+            <artifactId>pax-swissbox-bnd</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -83,6 +152,33 @@
                 <configuration>
                     <useBlueprint>true</useBlueprint>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf-version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>src/main/resources/wsdl/auth.wsdl</wsdl>
+                                    <extraargs>
+                                        <extraarg>-impl</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                            <fork>true</fork>
+                            <additionalJvmArgs>-Djavax.xml.accessExternalSchema=jar:file,file</additionalJvmArgs>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

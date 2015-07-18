@@ -58,7 +58,7 @@ public class AuthService implements APIAuth {
         response.setDescription("Success!");
         response.setEmail(login.getEmail());
         response.setToken(login.getToken());
-        return null;
+        return response;
     }
 
     public ActivatedLoginResponse activated(ActivatedLoginRequest request) {

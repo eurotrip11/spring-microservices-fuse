@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://ws.youbnb.it/auth" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.youbnb.it/auth" targetNamespace="http://ws.youbnb.it/auth">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://ws.youbnb.it/auth">
+
+    <xs:element name="loginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="loginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                    <xs:sequence>
+                        <xs:element name="id" nillable="true" type="xs:long"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="tokenValidAt" type="xs:dateTime"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="logoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" nillable="true" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="logoutResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="createLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element minOccurs="0" name="actived" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                    <xs:sequence>
+                        <xs:element name="id" nillable="true" type="xs:long"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="tokenValidAt" type="xs:dateTime"/>
+                        <xs:element name="actived" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="activatedLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" nillable="true" type="xs:long"/>
+                <xs:element name="token" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="activatedLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                    <xs:sequence>
+                        <xs:element name="id" nillable="true" type="xs:long"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="tokenValidAt" type="xs:dateTime"/>
+                        <xs:element name="actived" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType abstract="true" name="Response">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="status" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="loginRequest">
+    <wsdl:part element="tns:loginRequest" name="loginRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logoutRequest">
+    <wsdl:part element="tns:logoutRequest" name="logoutRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createLoginResponse">
+    <wsdl:part element="tns:createLoginResponse" name="createLoginResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginResponse">
+    <wsdl:part element="tns:loginResponse" name="loginResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logoutResponse">
+    <wsdl:part element="tns:logoutResponse" name="logoutResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="activatedLoginResponse">
+    <wsdl:part element="tns:activatedLoginResponse" name="activatedLoginResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createLoginRequest">
+    <wsdl:part element="tns:createLoginRequest" name="createLoginRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="activatedLoginRequest">
+    <wsdl:part element="tns:activatedLoginRequest" name="activatedLoginRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AuthPort">
+    <wsdl:operation name="login">
+      <wsdl:input message="tns:loginRequest" name="loginRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:loginResponse" name="loginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <wsdl:input message="tns:logoutRequest" name="logoutRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:logoutResponse" name="logoutResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createLogin">
+      <wsdl:input message="tns:createLoginRequest" name="createLoginRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:createLoginResponse" name="createLoginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="activatedLogin">
+      <wsdl:input message="tns:activatedLoginRequest" name="activatedLoginRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:activatedLoginResponse" name="activatedLoginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AuthPortSoap11" type="tns:AuthPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="login">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="loginRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="loginResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="logoutRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="logoutResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createLogin">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createLoginRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createLoginResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="activatedLogin">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="activatedLoginRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="activatedLoginResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AuthPortService">
+    <wsdl:port binding="tns:AuthPortSoap11" name="AuthPortSoap11">
+      <soap:address location="http://fuse.local:8081/ws/auth"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
