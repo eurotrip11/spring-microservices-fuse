@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>microservices</module>
+        <module>integrations</module>
     </modules>
     <packaging>pom</packaging>
     <name>YouBnb - BOM</name>
@@ -30,6 +31,8 @@
 
     <properties>
         <spring.boot.version>1.2.5.RELEASE</spring.boot.version>
+        <jboss.fuse.bom.version>6.2.0.redhat-133</jboss.fuse.bom.version>
+        <fabric.version>1.2.0.redhat-133</fabric.version>
     </properties>
 
     <repositories>

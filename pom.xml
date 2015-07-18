@@ -10,5 +10,6 @@
 	<modules>
 		<module>bom</module>
 		<module>microservices</module>
+		<module>integrations</module>
 	</modules>
 </project>
