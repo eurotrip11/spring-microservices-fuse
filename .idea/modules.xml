@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/microservices/microservice-auth/auth.iml" filepath="$PROJECT_DIR$/microservices/microservice-auth/auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bom/bom.iml" filepath="$PROJECT_DIR$/bom/bom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bom/microservices/bom-microservices.iml" filepath="$PROJECT_DIR$/bom/microservices/bom-microservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservices/commons/commons.iml" filepath="$PROJECT_DIR$/microservices/commons/commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservices/microservice-customer/customer.iml" filepath="$PROJECT_DIR$/microservices/microservice-customer/customer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservices/microservices.iml" filepath="$PROJECT_DIR$/microservices/microservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservices/microservices (2) (it.youbnb.microservices).iml" filepath="$PROJECT_DIR$/microservices/microservices (2) (it.youbnb.microservices).iml" />
+      <module fileurl="file://$PROJECT_DIR$/parent.iml" filepath="$PROJECT_DIR$/parent.iml" />
+    </modules>
+  </component>
+</project>

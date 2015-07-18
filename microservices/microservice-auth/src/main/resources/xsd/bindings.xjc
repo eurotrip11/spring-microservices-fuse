@@ -1,0 +1,12 @@
+<jaxb:bindings jaxb:extensionBindingPrefixes="xjc" version="2.1"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+    <jaxb:globalBindings>
+        <jaxb:javaType name="java.util.Date" xmlType="xs:date"
+                       parseMethod="it.youbnb.microservices.common.DateAdapter.unmarshal"
+                       printMethod="it.youbnb.microservices.common.DateAdapter.marshal"/>
+        <jaxb:javaType name="java.time.LocalDateTime" xmlType="xs:dateTime"
+                       parseMethod="it.youbnb.microservices.common.DateTimeAdapter.unmarshal"
+                       printMethod="it.youbnb.microservices.common.DateTimeAdapter.marshal"/>
+    </jaxb:globalBindings>
+</jaxb:bindings>

@@ -1,0 +1,107 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.youbnb.it/auth"
+           targetNamespace="http://ws.youbnb.it/auth" elementFormDefault="qualified">
+
+    <xs:element name="loginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="loginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long" nillable="true"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="token" type="xs:string" />
+                        <xs:element name="tokenValidAt" type="xs:dateTime" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="logoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" nillable="true" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="logoutResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="createLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="actived" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long" nillable="true"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="token" type="xs:string" />
+                        <xs:element name="tokenValidAt" type="xs:dateTime" />
+                        <xs:element name="actived" type="xs:boolean" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="activatedLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" nillable="true" />
+                <xs:element name="token" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="activatedLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Response">
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long" nillable="true"/>
+                        <xs:element name="email" type="xs:string"/>
+                        <xs:element name="token" type="xs:string" />
+                        <xs:element name="tokenValidAt" type="xs:dateTime" />
+                        <xs:element name="actived" type="xs:boolean" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="Response" abstract="true">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="status" type="xs:string" />
+            <xs:element name="description" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

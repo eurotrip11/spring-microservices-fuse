@@ -1,0 +1,62 @@
+spring:
+  profiles.active: default
+  jmx:
+      enabled: true
+---
+spring:
+    profiles: default
+    application:
+        name: microservice-auth
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://customer.db:5432/customerdb
+        username: postgres
+        password: customerdb
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        openInView: false
+        show_sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            hibernate.hbm2ddl.auto: update
+    jackson:
+        date-format: "yyyy-MM-dd"
+        serialization:
+            write_dates_as_timestamps: false
+server:
+    port: 8081
+---
+spring:
+    profiles: prod
+    application:
+        name: microservice-auth
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://customer.db:5432/customerdb
+        username: postgres
+        password: customerdb
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        openInView: false
+        show_sql: false
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            hibernate.hbm2ddl.auto: validate
+    jackson:
+        date-format: "yyyy-MM-dd"
+        serialization:
+            write_dates_as_timestamps: false
+server:
+    port: 8081
