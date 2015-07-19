@@ -3,6 +3,9 @@ set -e
 echo "Run Nexus docker"
 docker pull sonatype/nexus
 docker run -d -p 80:8081 --name nexus.local sonatype/nexus:oss
+echo "Run Jenkins docker"
+docker pull jenkins
+docker run -d -p 81:8080 --name jenkins.local --link nexus.local:nexus jenkins
 echo "Run Customer DB docker"
 docker pull postgres
 docker run --name customer.db -e POSTGRES_PASSWORD=customerdb -e POSTGRES_DB=customerdb -p 5432:5432 -d postgres

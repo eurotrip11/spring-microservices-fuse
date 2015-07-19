@@ -13,6 +13,7 @@
         <groupId>it.youbnb.bom</groupId>
         <artifactId>microservices</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../bom/microservices/pom.xml</relativePath>
     </parent>
 
     <groupId>it.youbnb.microservices</groupId>
