@@ -6,6 +6,28 @@
        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://fuse.local:61616"/>
+        <property name="userName" value="admin"/>
+        <property name="password" value="admin"/>
+    </bean>
+
+    <bean id="pooledConnectionFactory"   class="org.apache.activemq.pool.PooledConnectionFactory"  init-method="start" destroy-method="stop">
+        <property name="maxConnections" value="2" />
+        <property name="connectionFactory" ref="jmsConnectionFactory" />
+    </bean>
+
+    <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+        <property name="connectionFactory" ref="pooledConnectionFactory"/>
+        <property name="concurrentConsumers" value="2"/>
+    </bean>
+
+    <bean id="activemq"  class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="configuration" ref="jmsConfig"/>
+    </bean>
+
+
+
     <cxf:cxfEndpoint id="authEndpoint"
                      loggingFeatureEnabled="true"
                      address="http://localhost:18181/cxf/ws/auth"
@@ -16,11 +38,47 @@
                      address="http://fuse.local:8081/ws/auth"
                      serviceClass="it.youbnb.ws.auth.AuthPort"/>
 
-  <camelContext xmlns="http://camel.apache.org/schema/blueprint">
-      <route>
-          <from uri="cxf:bean:authEndpoint" />
-          <to uri="cxf:bean:authServiceEndpoint" />
+  <camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+      <route id="cxfwsRoute">
+          <from uri="cxf:bean:authEndpoint"/>
+          <log message="${header.operationName}"/>
+          <recipientList>
+              <simple>direct:${header.operationName}</simple>
+          </recipientList>
       </route>
+
+      <route id="loginRoute">
+          <from uri="direct:login"/>
+          <log message="login Body:[${body}]"/>
+          <convertBodyTo type="java.lang.String" />
+          <to uri="activemq:queue:auth.service.login" pattern="InOut"/>
+          <log message="return login Body:[${body}]"/>
+      </route>
+
+      <route id="logoutRoute">
+          <from uri="direct:logout"/>
+          <log message="logout Body:[${body}]"/>
+          <convertBodyTo type="java.lang.String" />
+          <to uri="activemq:queue:auth.service.logout" pattern="InOut"/>
+          <log message="return logout Body:[${body}]"/>
+      </route>
+
+      <route id="createdRoute">
+          <from uri="direct:created"/>
+          <log message="created Body:[${body}]"/>
+          <convertBodyTo type="java.lang.String" />
+          <to uri="activemq:queue:auth.service.created" pattern="InOut"/>
+          <log message="return created Body:[${body}]"/>
+      </route>
+
+      <route id="activatedRoute">
+          <from uri="direct:activated"/>
+          <log message="activated Body:[${body}]"/>
+          <convertBodyTo type="java.lang.String" />
+          <to uri="activemq:queue:auth.service.activated" pattern="InOut"/>
+          <log message="return activated Body:[${body}]"/>
+      </route>
+
   </camelContext>
 
 </blueprint>

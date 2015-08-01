@@ -14,6 +14,14 @@
 
     <name>YouBnB - Integrations - Users</name>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <fabric8.parentProfiles>feature-camel mq-client</fabric8.parentProfiles>                                                       
+        <fabric8.profile>youbnb-${project.artifactId}</fabric8.profile>
+        <fabric8.features>camel-cxf activemq-camel camel-jackson</fabric8.features>                
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -37,6 +45,15 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+        </dependency>   
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms</artifactId>
         </dependency>
 
         <dependency>

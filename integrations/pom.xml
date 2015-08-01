@@ -31,7 +31,8 @@
         <maven-bundle-plugin-version>2.3.5</maven-bundle-plugin-version>
         <build-helper-maven-plugin-version>1.5-redhat-1</build-helper-maven-plugin-version>
         <camel-version>2.15.1.redhat-620133</camel-version>
-        <cxf-version>3.0.4.redhat-620133</cxf-version>
+        <cxf-version>3.0.4.redhat-620133</cxf-version>                                                    
+        <fabric8.profile>youbnb-${project.artifactId}</fabric8.profile>            
     </properties>
 
     <dependencyManagement>
@@ -81,6 +82,9 @@
                     <groupId>io.fabric8</groupId>
                     <artifactId>fabric8-maven-plugin</artifactId>
                     <version>${fabric.version}</version>
+                    <configuration>
+                        <jolokiaUrl>http://admin:admin@fuse.local:8181/jolokia</jolokiaUrl>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.camel</groupId>
